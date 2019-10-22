@@ -1,8 +1,12 @@
+Given /the following movies exist:$/ do |movies_table|
+   movies_table.hashes.each do |movie|
+      Movie.create movie
+   end
+end
 
-Given /the following movies exist/ do |movies_table|
-  movies_table.hashes.each do |movie|
-    Movie.create movie
-  end
+Then /^the director of "(.*)" should be "([^"]*)"$/ do |movie_name, value|
+  expect(page).to have_content(movie_name)
+  expect(page.body).to match(/Director:\s#{value}/)
 end
 
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
